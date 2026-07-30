@@ -26,6 +26,18 @@ function renderList() {
   for (let i = 0; i < prompts.length; i++) {
     const item = document.createElement("li");
     item.textContent = prompts[i];
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "✕";
+
+    // This function "remembers" the i it was created with (a closure),
+    // so each button knows exactly which prompt is its own.
+    deleteBtn.addEventListener("click", function () {
+      prompts.splice(i, 1);
+      renderList();
+    });
+
+    item.appendChild(deleteBtn);
     list.appendChild(item);
   }
 }
