@@ -1,6 +1,7 @@
 // Grab the three elements from the page by their id, so we can use them in JS
 const input = document.getElementById("prompt-input");
 const addButton = document.getElementById("add-button");
+const searchInput = document.getElementById("search-input");
 const list = document.getElementById("prompt-list");
 
 // Our "state": the list of prompts, loaded from localStorage so it survives a refresh
@@ -25,11 +26,18 @@ addButton.addEventListener("click", function () {
   renderList();
 });
 
-// Rebuilds the <ul> on the page to match the current "prompts" array
+// Rebuilds the <ul> on the page to match the current "prompts" array,
+// filtered by whatever's typed in the search box
 function renderList() {
   list.innerHTML = "";
 
+  const query = searchInput.value.toLowerCase();
+
   for (let i = 0; i < prompts.length; i++) {
+    if (!prompts[i].toLowerCase().includes(query)) {
+      continue;
+    }
+
     const item = document.createElement("li");
     item.textContent = prompts[i];
 
@@ -48,5 +56,7 @@ function renderList() {
     list.appendChild(item);
   }
 }
+
+searchInput.addEventListener("input", renderList);
 
 renderList();
