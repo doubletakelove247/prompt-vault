@@ -3,8 +3,13 @@ const input = document.getElementById("prompt-input");
 const addButton = document.getElementById("add-button");
 const list = document.getElementById("prompt-list");
 
-// Our "state": the list of prompts, kept in memory as a plain array
-let prompts = [];
+// Our "state": the list of prompts, loaded from localStorage so it survives a refresh
+let prompts = JSON.parse(localStorage.getItem("prompts")) || [];
+
+// Saves the current prompts array to localStorage
+function savePrompts() {
+  localStorage.setItem("prompts", JSON.stringify(prompts));
+}
 
 // Listen for clicks on the button, and run this function each time
 addButton.addEventListener("click", function () {
@@ -16,6 +21,7 @@ addButton.addEventListener("click", function () {
 
   prompts.push(promptText);
   input.value = "";
+  savePrompts();
   renderList();
 });
 
@@ -34,6 +40,7 @@ function renderList() {
     // so each button knows exactly which prompt is its own.
     deleteBtn.addEventListener("click", function () {
       prompts.splice(i, 1);
+      savePrompts();
       renderList();
     });
 
@@ -41,3 +48,5 @@ function renderList() {
     list.appendChild(item);
   }
 }
+
+renderList();
