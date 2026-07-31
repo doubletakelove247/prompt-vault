@@ -24,3 +24,24 @@ h2 {
 p {
   color: #004EFF;
 }
+
+#settings-box {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+#key-status {
+  margin-left: 8px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.ai-response {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 8px;
+  margin-top: 6px;
+  white-space: pre-wrap;
+}
